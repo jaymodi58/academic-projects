@@ -1,0 +1,2 @@
+# TA Management System
+This application will let you store student's details in the Javascript array. Then, it will also let you iterate,update and delete the student details. To keep track of each operation, there is logging facility.

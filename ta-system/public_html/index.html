@@ -1,0 +1,448 @@
+
+
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title> TA SYSTEM </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="TA_css.css" type="text/css">
+        
+        <script type="text/javascript">
+            
+            var tos=-1;
+            var max_tos=0;
+            var flag=0;
+            var record="";
+            var array=[];
+            var edited=0;
+            
+            for(var i=0; i<50; i++)
+            {
+                array.push(
+                    {   firstName:"" ,
+                        lastName:"",
+                        idNumber:"",
+                        area:"",
+                        selection:false
+                    });
+            }
+            
+            function  clearField()
+            {
+                //clearing each field
+                document.getElementById("fname").value="";
+                document.getElementById("lname").value="";
+                document.getElementById("id").value="";
+                document.getElementById("selected").checked=false;
+                
+                //buttons
+                document.getElementById("new").disabled = true;
+                document.getElementById("edit").disabled = true;
+                document.getElementById("delete").disabled = true;
+                document.getElementById("first").disabled = true;
+                document.getElementById("previous").disabled = true;
+                document.getElementById("next").disabled = true;
+                document.getElementById("last").disabled = true;
+                document.getElementById("select").disabled = true;
+                document.getElementById("save").disabled = false;
+                document.getElementById("cancel").disabled = false;
+                
+                document.getElementById("fname").disabled = false;
+                document.getElementById("lname").disabled = false;
+                document.getElementById("id").disabled = false;
+                document.getElementById("special").disabled = false;
+                document.getElementById("selected").disabled = false;
+            }
+            function addRecord()
+            {
+                if(edited===1)
+                {
+                    array[tos].firstName=document.getElementById("fname").value;
+                    array[tos].lastName=document.getElementById("lname").value;
+                    array[tos].idNumber=document.getElementById("id").value;
+                    array[tos].area=document.getElementById("special").value;
+                    array[tos].selection=document.getElementById("selected").checked;
+
+                    record+="Edited: ";
+                    record+=array[tos].firstName+" ";
+                    record+=array[tos].lastName+", ";
+                    record+=array[tos].idNumber+", ";
+                    record+=array[tos].area+"\n";
+                    
+                    document.getElementById("text").value=record;
+                    edited=0;
+                }
+                else
+                {
+                    tos++;
+                    record+="Added: ";
+
+                    if(flag===0)
+                    {
+                        tos=0;
+                        flag=1;
+                    }
+                    if(max_tos>tos)
+                        tos=max_tos+1;
+
+                    array[tos].firstName=document.getElementById("fname").value;
+                    array[tos].lastName=document.getElementById("lname").value;
+                    array[tos].idNumber=document.getElementById("id").value;
+                    array[tos].area=document.getElementById("special").value;
+                    array[tos].selection=document.getElementById("selected").checked;
+
+                    record+=array[tos].firstName+" ";
+                    record+=array[tos].lastName+", ";
+                    record+=array[tos].idNumber+", ";
+                    record+=array[tos].area+"\n";
+
+                    document.getElementById("text").value=record;
+
+                    document.getElementById("new").disabled = false;
+                    document.getElementById("edit").disabled = false;
+                    document.getElementById("delete").disabled = false;
+                    document.getElementById("first").disabled = false;
+                    document.getElementById("previous").disabled = false;
+                    document.getElementById("next").disabled = true;
+                    document.getElementById("last").disabled = false;
+                    document.getElementById("select").disabled = false;
+                    document.getElementById("save").disabled = true;
+                    document.getElementById("cancel").disabled = true;
+
+                    document.getElementById("fname").value="";
+                    document.getElementById("lname").value="";
+                    document.getElementById("id").value="";
+
+                    document.getElementById("selected").checked=false;
+                    if(tos>max_tos)
+                        max_tos=tos;
+                }
+            }
+            function reloadRecord()
+            {   
+                var a=array[tos].firstName;
+                var b=array[tos].lastName;
+                var c=array[tos].idNumber;
+                var d=array[tos].area;
+                var e=array[tos].selection;
+                document.getElementById("fname").value=a;
+                document.getElementById("lname").value=b;
+                document.getElementById("id").value=c;
+                document.getElementById("special").value=d;
+                document.getElementById("selected").checked=e;
+                
+                document.getElementById("new").disabled = false;
+                document.getElementById("edit").disabled = false;
+                document.getElementById("delete").disabled =false;
+                document.getElementById("first").disabled = false;
+                document.getElementById("previous").disabled = false;
+                document.getElementById("next").disabled = false;
+                document.getElementById("last").disabled = false;
+                document.getElementById("select").disabled = false;
+                document.getElementById("save").disabled=true;
+                document.getElementById("cancel").disabled=true;
+                
+                document.getElementById("fname").disabled = true;
+                document.getElementById("lname").disabled = true;
+                document.getElementById("id").disabled = true;
+                document.getElementById("special").disabled = true;
+                document.getElementById("selected").disabled = true;
+            }
+            function firstRecord()
+            {
+                tos=0;
+                var a=array[tos].firstName;
+                var b=array[tos].lastName;
+                var c=array[tos].idNumber;
+                var d=array[tos].area;
+                var e=array[tos].selection;
+                
+                document.getElementById("fname").value=a;
+                document.getElementById("lname").value=b;
+                document.getElementById("id").value=c;
+                document.getElementById("special").value=d;
+                document.getElementById("selected").checked=e;
+                
+                document.getElementById("fname").disabled = true;
+                document.getElementById("lname").disabled = true;
+                document.getElementById("id").disabled = true;
+                document.getElementById("special").disabled = true;
+                document.getElementById("selected").disabled = true;
+                
+                //button operations
+                document.getElementById("new").disabled = false;
+                document.getElementById("edit").disabled = false;
+                document.getElementById("delete").disabled =false;
+                document.getElementById("first").disabled = false;
+                document.getElementById("last").disabled = false;
+                document.getElementById("select").disabled = false;
+                document.getElementById("save").disabled=true;
+                document.getElementById("cancel").disabled=true;
+                
+                document.getElementById("previous").disabled = true;
+                document.getElementById("next").disabled = false;
+            }
+            function nextRecord()
+            {
+                tos++;
+                if(tos<=max_tos)
+                {
+                    var a=array[tos].firstName;
+                    var b=array[tos].lastName;
+                    var c=array[tos].idNumber;
+                    var d=array[tos].area;
+                    var e=array[tos].selection;
+                    document.getElementById("fname").value=a;
+                    document.getElementById("lname").value=b;
+                    document.getElementById("id").value=c;
+                    document.getElementById("special").value=d;
+                    document.getElementById("selected").checked=e;
+                    document.getElementById("previous").disabled = false;
+                    document.getElementById("new").disabled = false;
+                    
+                    document.getElementById("fname").disabled = true;
+                    document.getElementById("lname").disabled = true;
+                    document.getElementById("id").disabled = true;
+                    document.getElementById("special").disabled = true;
+                    document.getElementById("selected").disabled = true;
+                    if(tos===max_tos)
+                    {
+                        document.getElementById("next").disabled = true;
+                        document.getElementById("previous").disabled = false;
+                    }
+                }
+            }
+            function previousRecord()
+            {
+                tos--;
+                if(tos>=0)
+                {
+                    var a=array[tos].firstName;
+                    var b=array[tos].lastName;
+                    var c=array[tos].idNumber;
+                    var d=array[tos].area;
+                    var e=array[tos].selection;
+                    document.getElementById("fname").value=a;
+                    document.getElementById("lname").value=b;
+                    document.getElementById("id").value=c;
+                    document.getElementById("special").value=d;
+                    document.getElementById("selected").checked=e;
+                    document.getElementById("next").disabled = false;
+                    document.getElementById("new").disabled = false;
+                    
+                    document.getElementById("fname").disabled = true;
+                    document.getElementById("lname").disabled = true;
+                    document.getElementById("id").disabled = true;
+                    document.getElementById("special").disabled = true;
+                    document.getElementById("selected").disabled = true;
+
+                    if(tos===0)
+                    {
+                        document.getElementById("previous").disabled = true;
+                        document.getElementById("next").disabled = false;
+                    }
+                }
+            }
+            function lastRecord()
+            {
+                tos=max_tos;
+                var a=array[tos].firstName;
+                var b=array[tos].lastName;
+                var c=array[tos].idNumber;
+                var d=array[tos].area;
+                var e=array[tos].selection;
+                
+                document.getElementById("fname").value=a;
+                document.getElementById("lname").value=b;
+                document.getElementById("id").value=c;
+                document.getElementById("special").value=d;
+                document.getElementById("selected").checked=e;
+                
+                //button operations
+                document.getElementById("new").disabled = false;
+                document.getElementById("edit").disabled = false;
+                document.getElementById("delete").disabled =false;
+                document.getElementById("first").disabled = false;
+                document.getElementById("last").disabled = false;
+                document.getElementById("select").disabled = false;
+                document.getElementById("save").disabled=true;
+                document.getElementById("cancel").disabled=true;
+                
+                document.getElementById("fname").disabled = true;
+                document.getElementById("lname").disabled = true;
+                document.getElementById("id").disabled = true;
+                document.getElementById("special").disabled = true;
+                document.getElementById("selected").disabled = true;
+                
+                document.getElementById("previous").disabled = false;
+                document.getElementById("next").disabled = true;
+            }
+            function selectRecord()
+            {
+                var sel=array[tos].selection;
+                if(sel===true)
+                    alert("This candidate has been already selected.");
+                else
+                {
+                    array[tos].selection=true;
+                    record+="Selected: ";
+                    record+=array[tos].firstName+" ";
+                    record+=array[tos].lastName+", ";
+                    record+=array[tos].idNumber+", ";
+                    record+=array[tos].area+"\n";
+                    document.getElementById("selected").checked=true;
+                    document.getElementById("text").value=record;
+                }
+            }
+            function editRecord()
+            {
+                document.getElementById("fname").disabled = false;
+                document.getElementById("lname").disabled = false;
+                document.getElementById("id").disabled = false;
+                document.getElementById("special").disabled = false;
+                document.getElementById("selected").disabled = false;
+                
+                document.getElementById("save").disabled=false;
+                document.getElementById("cancel").disabled=false;
+                
+                edited=1;
+            }
+            function deleteRecord()
+            {
+                //alert(tos);
+                //alert(max_tos);
+                var p;
+                record+="Removed: ";
+                record+=array[tos].firstName+" ";
+                record+=array[tos].lastName+", ";
+                record+=array[tos].idNumber+", ";
+                record+=array[tos].area+"\n";
+                document.getElementById("text").value=record;
+                for(var j=tos;j<max_tos;j++)
+                {
+                    p=j+1;
+                    array[j].firstName=array[p].firstName;
+                    array[j].lastName=array[p].lastName;
+                    array[j].idNumber=array[p].idNumber;
+                    array[j].area=array[p].area;
+                    array[j].selection=array[p].selection;
+                }
+                
+                
+                max_tos--;
+                
+                tos--;
+                //alert(tos);
+                if(tos<0)
+                {
+                    tos+=2;
+                }
+                var a=array[tos].firstName;
+                var b=array[tos].lastName;
+                var c=array[tos].idNumber;
+                var d=array[tos].area;
+                var e=array[tos].selection;
+                document.getElementById("fname").value=a;
+                document.getElementById("lname").value=b;
+                document.getElementById("id").value=c;
+                document.getElementById("special").value=d;
+                document.getElementById("selected").checked=e;
+            }
+ 
+        </script>
+   </head>
+    
+    
+    <body background="IMG/background.png" >
+        
+        <div class="container">
+            <div id="sidebar">
+                <h1>Useful Links</h1>
+                <ul>
+                    <li><a href="http://www.fit.edu/">FIT Website</a></li></br>
+                    <li><a href="https://www.google.com/?gws_rd=ssl">Google Search</a></li></br>
+                    <li><a href="https://www.bing.com/">Bing Search</a></li></br>
+                    <li><a href="https://search.yahoo.com/">Yahoo Search</a></li>
+                </ul>
+            </div>
+            <div id="header">
+                <!--<center><h1>TA Management System</h1></center>-->
+                <img src="IMG/header.png" alt="">
+            </div>
+            <div id="content">
+            
+                <fieldset class="text-box">
+                <form action="" method="post" name="new">
+                
+                <br>
+                <table border="1" class="text-box">
+                    <tr>
+                        <td><b>First name:</b></td>
+                        <td><input name="firstname" id="fname" type="text" size="20" class="text-box required"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Last name:</b></td>
+                        <td><input name="lastname" id="lname" type="text" size="20" class="text-box"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Student ID:</b></td>
+                        <td><input name="studentid" id="id" type="text" size="20" class="text-box"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Area of Specialization:</b></td>
+                        <td>
+                            <select id="special" class="text-box">
+                                <option value="Programming">Programming</option>
+                                <option value="Database">Database</option>
+                                <option value="Testing">Testing</option>
+                                <option value="Networking">Networking</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Selected:</b></td>
+                        <td><input name="select" id="selected"  type="checkbox"/></td>
+                    </tr>
+                </table>
+                <hr>
+                <table border="1" class="text-box">
+                    <tr>
+                        <td><input type="button" id="new" onclick="clearField()" value="New" class="text-box"/></td>
+                        <td><input type="button" id="edit" onclick="editRecord()" value="Edit" class="text-box"/></td>
+                        <td><input type="button" id="delete" onclick="deleteRecord()" value="Delete" class="text-box"/></td>
+                        <td><input type="button" id="save" onclick="addRecord()"  value="Save" class="text-box"/></td>
+                        <td><input type="button" id="cancel" onclick="reloadRecord()" value="Cancel" class="text-box"/></td>
+                    </tr>
+                    <tr>
+                        <td><input type="button" id="first" onclick="firstRecord()" value="First" class="text-box"/></td>
+                        <td><input type="button" id="previous" onclick="previousRecord()" value="Previous" class="text-box"/></td>
+                        <td><input type="button" id="next" onclick="nextRecord()" value="Next" class="text-box"/></td>
+                        <td><input type="button" id="last" onclick="lastRecord()" value="Last" class="text-box"/></td>
+                        <td><input type="button" id="select" onclick="selectRecord()" value="Select" class="text-box"/></td>
+                    </tr>
+                </table>
+                <hr>
+                <table>
+                    <tr>
+                        <td><b>Logs</b></td>
+                    </tr>
+                    <tr>
+                        <td><textarea name="other" id="text" rows="8" cols="70" class="text-box"></textarea></td>
+                    </tr>
+                </table>
+                </form>
+                </fieldset>
+            </div>
+            <div id="footer">
+                <center>&copy;2015 Jay Modi,All Rights Reserved</center>
+            </div>
+        </div>
+    </body>
+
+</html>
