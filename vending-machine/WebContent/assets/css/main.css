@@ -1,0 +1,14 @@
+body{
+	background-image: url("/Team9Final/assets/pictures/backGround1.jpg");
+}
+
+fieldset {
+	border-color: black;
+	border-style: solid;
+}
+
+.error {
+	color: red;
+	font-size: 13px;
+	font-style: italic;
+}
