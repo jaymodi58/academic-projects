@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html>
+   <head>
+      <title>change picture</title>
+      <script type = "text/javascript">
+          function displayNextImage() {
+              x = (x === images.length - 1) ? 0 : x + 1;
+              document.getElementById("img").src = images[x];
+          }
+
+          function displayPreviousImage() {
+              x = (x <= 0) ? images.length - 1 : x - 1;
+              document.getElementById("img").src = images[x];
+          }
+
+          function startTimer() {
+              setInterval(displayNextImage, 3000);
+          }
+
+          var images = [], x = -1;
+          images[0] = "IMG/image1.jpg";
+          images[1] = "IMG/image2.jpg";
+          images[2] = "IMG/image3.jpg";
+          images[3] = "IMG/image4.jpg";
+          images[4] = "IMG/image5.jpg";
+          images[5] = "IMG/image6.jpg";
+      </script>
+   </head>
+
+   <body onload = "startTimer()">
+       <img id="img" src="IMG/startpicture.jpg"/>
+       
+   </body>
+</html>

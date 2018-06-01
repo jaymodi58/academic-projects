@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>myGame</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--<meta http-equiv="refresh" content="1">-->
+        <link rel="stylesheet" href="game.css" type="text/css">
+        <script src="game.js" type="text/javascript"></script>
+        <style type="text/css">
+            table,td
+            {
+                width: 50px;
+                //height: 40px;
+                border: 3px solid black;
+                border-collapse: collapse;
+                font-size: 17px;
+            }
+            th
+            {
+                width: 50px;
+                background-color:#0033ff;
+                color: white;
+                border: 3px solid black;
+                border-collapse: collapse;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            Game
+        </header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li><a href="register.html">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li><a href="games.html">Games</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li><a href="logs.html">Logs</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li><a href="charts.html">Charts</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li><a href="login.html">Login</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            </ul>
+        </nav>
+        <aside>
+            <img id="img" alt="" src="IMG/startpicture.jpg"/>
+            <script>
+                startTimer();
+            </script>
+        </aside>
+        <article class="others">
+            <h1>Player Activities Page</h1>
+            <table border="1">
+                <tr>
+                    <th>Player Name</th>
+                    <th>Start Date and Time</th>
+                    <th>End Date and Time</th>
+                    <th>Game Word</th>
+                    <th>Result</th>
+                </tr>
+                <script>
+                    var array = JSON.parse(localStorage.getItem('allRecords'));
+                    for( var i = 0; i < array.length; i++ )
+                    {
+                        document.write("<tr>");
+                        for(var property in array[i])
+                        {
+                            //alert(array[i][property]);
+                            document.write("<td>"+array[i][property]+"</td>");
+                            //+ property +"--" +
+                        }
+                        document.write("</tr>");
+                    }
+                </script>
+                <!--<tr>    
+                    <td>Jay</td>
+                    <td>05/12/2015</td>
+                    <td>05/13/2015</td>
+                    <td>Chodu</td>
+                    <td>Lodo jite</td>
+                </tr>-->
+            </table>
+        </article>
+        <footer>
+            &copy;2015 Jay Modi. All rights reserved.
+        </footer>
+    </body>
+</html>

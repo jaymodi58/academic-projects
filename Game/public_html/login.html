@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>myGame</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="game.css" type="text/css">
+        <script src="game.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            function login()
+            {
+                var flag=0;
+                var array = JSON.parse(localStorage.getItem('allEntries'));
+                //i=0;
+                for( var i = 0; i < array.length; i++ )
+                {
+                    //stored username and password
+                    var uname=array[i]["username"];
+                    var pwd=array[i]["password"];
+                    var fname=array[i]["fname"];
+                    //username and password added by user
+                    var tmp_uname=document.getElementById("login_username").value;
+                    var tmp_pwd=document.getElementById("login_password").value;
+                    //alert("uname:" + uname + " & pwd:" +pwd +"\ntmp_uname:" + tmp_uname + " & tmp_pwd:" + tmp_pwd );
+                    
+                    if(tmp_uname===uname && tmp_pwd===pwd)
+                    {
+                        sessionStorage.setItem("sessionUsername", uname);
+                        sessionStorage.setItem("sessionFirstname",fname);
+                        //var name = sessionStorage.getItem("name");
+                        alert("Login Successful.");
+                        
+                        flag=0;
+                        games();
+                        break;
+                    }
+                    else
+                    {
+                        flag=1;
+                    }
+                 }
+                 if(flag===1)
+                 {
+                        alert("Username or Password incorrect.");
+                 }
+            }
+        </script>
+    </head>
+    <body>
+        <header>
+            Game
+        </header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li><a href="register.html">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li><a href="games.html">Games</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li><a href="logs.html">Logs</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li><a href="charts.html">Charts</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li><a href="login.html">Login</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            </ul>
+        </nav>
+        <aside>
+            <img id="img" alt="" src="IMG/startpicture.jpg"/>
+            <script>
+                startTimer();
+            </script>
+        </aside>
+        <article class="others">
+            <form>
+                <h1>Login Page</h1>
+                <table>
+                    <tr>
+                        <td>Username:</td>
+                        <td><input type="text" id="login_username" required="required"><span>*</span></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type="text" id="login_password" required="required"><span>*</span></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Submit" onclick="login()"></td>
+                        <td><input type="reset" value="Cancel"></td>
+                    </tr>
+                </table>
+            </form>
+        </article>
+        <footer>
+            &copy;2015 Jay Modi. All rights reserved.
+        </footer>
+    </body>
+</html>

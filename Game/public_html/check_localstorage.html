@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TODO supply a title</title>
+</head>
+<body>
+<h1>Using HTML Web Storage</h1>
+<script>
+var list = [
+{
+id: 1234,
+name: "Peter",
+gpa: 3.5
+},
+{
+id: 5678,
+name: "Lily",
+gpa: 3.2
+}
+];
+// Convert the student object into JSON data
+localStorage.list = JSON.stringify(list);
+alert(typeof localStorage.list);
+alert(localStorage.list);
+var list2 = JSON.parse(localStorage.list);
+var output = '';
+for( var i = 0; i < list2.length; i++ ) {
+output += "Object " + i + ":\r\n";
+for(var property in list2[i]) {
+output += "\t" + property + ": " + list2[i][property] + "\r\n";
+}
+}
+alert(output);
+</script>
+</body>
+</html>

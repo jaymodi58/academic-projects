@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>myGame</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="game.css" type="text/css">
+        <script src="game.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <header>
+            Game
+        </header>
+        <script>
+            var username=sessionStorage.getItem('sessionUsername');
+            var firstname=sessionStorage.getItem('sessionFirstname');
+            //alert(username);
+            if(username===null)
+            {
+                alert("Login required.");
+                window.location="login.html";
+            }
+            else
+            {
+                var dictionary=["MANGO", "JUICE", "COLLEGE", "UNIVERSITY", "CALLIFORNIA", "MILK", "CYCLE", "CAR", "DEBATE", "FRUITS", "CAKE", "EGGS", "BANANA", "HOME", "CITY", "PEN" , "SHOES"];
+                //var dictionary = ["absent","elephant","crow","businessman","accommodation","across","alcohol","alphabetically","also","already",
+                  //              "assist","large","Blaster","Shotgun","game","Improve","part","banana","grapes","mango"];
+                localStorage.setItem("storedDictionary", JSON.stringify(dictionary));
+                
+            }
+            add_record();
+        </script>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li><a href="register.html">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li><a href="games.html">Games</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li><a href="logs.html">Logs</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li><a href="charts.html">Charts</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li><a href="login.html">Login</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            </ul>
+        </nav>
+        <aside>
+            <img id="img" alt="" src="IMG/startpicture.jpg"/>
+            <script>
+                startAdvertisement();
+            </script>
+        </aside>
+        <article class="others" id="game_content">
+            <script>
+                document.write("<h1>Player: "+ firstname+"</h1>");
+                document.write("<\input type=\"button\" value=\"logout\" onclick=\"logout()\">");
+                document.write("<br>");
+            </script>
+            
+            <script>
+                
+                var array = JSON.parse(localStorage.getItem('storedDictionary'));
+                    /*for( var i = 0; i < array.length; i++ )//printing wordlist
+                    {
+                        document.write(array[i]);
+                        document.write("---"+array[i].length);
+                        document.write("<br>");
+                    }*/
+                //alert(array.length);
+                var index=Math.floor(Math.random()*array.length);
+                //alert(index);
+                var takenString;
+                
+                temp_array = JSON.parse(localStorage.getItem('allRecords'));
+                last=temp_array.length-1;
+                temp_array[last]["word"]=array[index];
+                localStorage.setItem("allRecords", JSON.stringify(temp_array));
+                
+                        
+                String.prototype.shuffle = function()
+                {
+                    var a = this.split(""),
+                    n = a.length;
+
+                    for(var i = n - 1; i > 0; i--)
+                    {
+                        var j = Math.floor(Math.random() * (i + 1));
+                        var tmp = a[i];
+                        a[i] = a[j];
+                        a[j] = tmp;
+                    }
+                    return a.join("");
+                };
+
+                // and the result is...
+                var shuffledWord=array[index].shuffle();
+                //alert(shuffledWord);
+                var splitedWord = shuffledWord.split("");
+                //alert(splitedWord);
+                
+                document.write("<div id=\"columns\">");
+                for(var i = 0; i < splitedWord.length; i++)
+                {
+                    document.write("<div class=\"column\" draggable=\"true\">" + splitedWord[i] + "</div>");
+                }
+            /*<div id="columns">
+                <div class="column" draggable="true">A</div>
+                <div class="column" draggable="true">B</div>
+                <div class="column" draggable="true">C</div>
+                <div class="column" draggable="true">D</div>
+                <div class="column" draggable="true">E</div>
+                <div class="column" draggable="true">F</div>
+                <div class="column" draggable="true">G</div>
+                <div class="column" draggable="true">H</div>
+            </div>
+            <h1>Games</h1>*/
+                document.write("<br><br><br>");
+                for(var i = 0; i < splitedWord.length; i++)
+                {
+                    document.write("<div class=\"columnBlank\" draggable=\"true\"></div>");
+                }
+            </script>
+            <br><br><br>
+            <input type="button" value="New Game" onclick="new_game()">&nbsp;
+            <input type="button" value="Quit Game" onclick="quit_game()">
+            
+            <div id="timer">
+                Time Left:
+                <span id="countdown"></span>
+                <script>
+                    var seconds = 20;
+                function secondPassed()
+                {
+                    var minutes = Math.round((seconds - 30)/60);
+                    var remainingSeconds = seconds % 60;
+                    if(remainingSeconds < 10)
+                    {
+                        remainingSeconds = "0" + remainingSeconds;  
+                    }
+                    document.getElementById('countdown').innerHTML = minutes + ":" + remainingSeconds;
+                    if(seconds === 0)
+                    {
+                        clearInterval(countdownTimer);
+                        document.getElementById('countdown').innerHTML = "Buzz Buzz";
+                        
+                        var array = JSON.parse(localStorage.getItem('allRecords'));
+                        var last=array.length-1;
+                        
+                        var now     = new Date(); 
+                        var year    = now.getFullYear();
+                        var month   = now.getMonth()+1; 
+                        var day     = now.getDate();
+                        var hour    = now.getHours();
+                        var minute  = now.getMinutes();
+                        var second  = now.getSeconds(); 
+
+                        if(month.toString().length === 1) {
+                            var month = '0'+month;
+                        }
+                        if(day.toString().length === 1) {
+                            var day = '0'+day;
+                        }   
+                        if(hour.toString().length === 1) {
+                            var hour = '0'+hour;
+                        }
+                        if(minute.toString().length === 1) {
+                            var minute = '0'+minute;
+                        }
+                        if(second.toString().length === 1) {
+                            var second = '0'+second;
+                        }   
+                        var endDateTime = year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second;
+                        array[last]["end"]=endDateTime;
+                        array[last]["result"]="lost";
+                        array[last]["word"]=
+                        localStorage.setItem("allRecords", JSON.stringify(array));
+                        
+                        //alert("Time out.");
+                        //location.reload();
+                    }
+                    else
+                    {
+                        seconds--;
+                    }
+                }
+
+                var countdownTimer = setInterval('secondPassed()', 1000);
+                //alert("Time over");
+                var now     = new Date(); 
+                var year    = now.getFullYear();
+                var month   = now.getMonth()+1; 
+                var day     = now.getDate();
+                var hour    = now.getHours();
+                var minute  = now.getMinutes();
+                var second  = now.getSeconds(); 
+
+                if(month.toString().length === 1) {
+                    var month = '0'+month;
+                }
+                if(day.toString().length === 1) {
+                    var day = '0'+day;
+                }   
+                if(hour.toString().length === 1) {
+                    var hour = '0'+hour;
+                }
+                if(minute.toString().length === 1) {
+                    var minute = '0'+minute;
+                }
+                if(second.toString().length === 1) {
+                    var second = '0'+second;
+                }   
+                endDateTime = year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second;   
+                 //return dateTime;
+                    //alert(endDateTime);
+                </script>
+            </div>
+            
+        </article>
+        <footer>
+            &copy;2015 Jay Modi. All rights reserved.
+        </footer>
+    </body>
+</html>
