@@ -1,0 +1,5 @@
+1.import .txt from file--->import mesh (separator=space)
+2.Filer--->Point Set---->compute normals for point set
+3.Filter-->Remeshing, simplication and reconstruction--->Surface reconstruction: Ball pivoting
+4.Filter-->Remeshing, simplication and reconstruction--->Surface reconstruction: VCG
+
